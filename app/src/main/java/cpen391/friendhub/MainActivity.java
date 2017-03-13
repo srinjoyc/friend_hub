@@ -1,6 +1,7 @@
 package cpen391.friendhub;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    public void switchToSurvey(View view){
+        Intent intent = new Intent(this,Survey.class);
+        startActivity(intent);
+    }
+
     public void renderResponse(User client){
         TextView name = (TextView) findViewById(R.id.name);
         TextView email = (TextView) findViewById(R.id.email);
@@ -75,5 +81,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
 }
