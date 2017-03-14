@@ -23,6 +23,15 @@ public class User {
                                     0.0,    //Conscientiousness
                                     0.0};   //Neuroticism
 
+    public void User(){
+        id = Integer.MIN_VALUE;
+        name = "";
+        email= "";
+        password= "";
+        bio = "";
+        createdAt = "";
+        updatedAt = "";
+    }
 
     public int getId() {
         return id;

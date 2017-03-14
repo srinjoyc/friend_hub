@@ -13,6 +13,13 @@ public class SurveyHandler {
     double att4; //conscientiousness;
     double att5; //neuroticism;
 
+    String questionArray[][] = {{"I frequently like to go out with large groups of people", "I enjoy talking to and meeting new people"},
+                                {"I speak openly and plainly to strangers about myself","I tell my close family and friends about my life in great detail"},
+                                {"I don't like to argue with people", "I prefer to avoid disputes with friend and family"},
+                                {"I examine my actions and how they affect others every day","I spend a lot of time planning and thinking through tasks"},
+                                {"I frequently feel envious of other's accomplishments","My mood fluctuates greatly during the day"}
+                                };
+
     final int numQuestions = 2;
 
 
@@ -66,8 +73,8 @@ public class SurveyHandler {
         for(int i : att5Scores) att5+=i/numQuestions;
     }
 
-    //TODO: ADD RETURN QUESTIONS
     public String getQuestionText(int attributeNumber, int questionNumber) {
-        return "Stand in"+ attributeNumber + questionNumber;
+        return questionArray[attributeNumber-1][questionNumber-1];
+        //return "Stand in"+ attributeNumber + questionNumber;
     }
 }

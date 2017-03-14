@@ -28,13 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        if(intent.hasExtra(EXIT_EXTRA)){
-            double tempArray[] = intent.getDoubleArrayExtra(USER_ATTRIBUTE_KEY);
-            for (int i = 0; i < NUM_QUESTIONS; i++) {
-                client.updateAttributes(i, tempArray[i]);
-            }
-        }
+
         setContentView(R.layout.activity_main);
 
         Button getUserButton = (Button) findViewById(R.id.getUser);
@@ -47,6 +41,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    public void onResume(Bundle savedInstanceState){
+        super.onResume();
+        Intent intent = getIntent();
+        if(intent.hasExtra(EXIT_EXTRA)){
+            double tempArray[] = intent.getDoubleArrayExtra(USER_ATTRIBUTE_KEY);
+            for (int i = 0; i < NUM_QUESTIONS; i++) {
+                client.updateAttributes(i, tempArray[i]);
+                Log.e("RyanOut",client.attributesToString());
+            }
+        }
+    }
+
     public void switchToSurvey(View view){
         Intent intent = new Intent(this,Survey.class);
         startActivity(intent);

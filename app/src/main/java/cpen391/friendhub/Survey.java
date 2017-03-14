@@ -55,6 +55,8 @@ public class Survey extends AppCompatActivity {
         setContentView(R.layout.activity_survey);
 
         sHandler = new SurveyHandler();
+        userAttributes = new double[5];
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -134,12 +136,6 @@ public class Survey extends AppCompatActivity {
             }
         }
 
-        public void onFinishClick(View v) {
-            Intent intent = new Intent(super.getActivity(), MainActivity.class);
-            intent.putExtra("EXIT","SURVEY");
-            intent.putExtra("User Attributes",userAttributes);
-            startActivity(intent);
-        }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -164,18 +160,21 @@ public class Survey extends AppCompatActivity {
             nextButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int attributeNumber = getArguments().getInt(ARG_SECTION_NUMBER);
-                    if (questionTracker[attributeNumber-1] < numQuestions && surveyGroup.getCheckedRadioButtonId() != -1){
-                        questionTracker[attributeNumber - 1]++;
-                        surveyGroup.clearCheck();
-                        textView.setText(sHandler.getQuestionText(attributeNumber, questionTracker[attributeNumber - 1]));
-                    }else if(questionTracker[attributeNumber-1] == numQuestions && surveyGroup.getCheckedRadioButtonId() != -1 )
-                        nextButton.setVisibility(GONE);
+                    if(surveyGroup.getCheckedRadioButtonId() != -1) {
+                        int attributeNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+                        if (questionTracker[attributeNumber - 1] < numQuestions) {
+                            questionTracker[attributeNumber - 1]++;
+                            surveyGroup.clearCheck();
+                            textView.setText(sHandler.getQuestionText(attributeNumber, questionTracker[attributeNumber - 1]));
+                        } else if (questionTracker[attributeNumber - 1] == numQuestions && surveyGroup.getCheckedRadioButtonId() != -1)
+                            nextButton.setVisibility(GONE);
                         //questionTracker[attributeNumber-1]++;
-                    if(isSurveyComplete()){
-                        Log.e("ryanout", "completedSurvey");
-                        nextButton.setVisibility(GONE);
-                        finishButton.setVisibility(VISIBLE);
+                        if (isSurveyComplete()) {
+                            Log.e("ryanout", "completedSurvey");
+                            nextButton.setVisibility(GONE);
+                            finishButton.setVisibility(VISIBLE);
+                        }
+
                     }
                 }});
 
@@ -197,6 +196,16 @@ public class Survey extends AppCompatActivity {
 
             });
             textView.setText(sHandler.getQuestionText(attributeNumber, questionTracker[attributeNumber-1]));
+            finishButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setSurveyResults();
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.putExtra("EXIT","SURVEY");
+                    intent.putExtra("User Attributes",userAttributes);
+                    startActivity(intent);
+                }
+            });
             return rootView;
         }
 
