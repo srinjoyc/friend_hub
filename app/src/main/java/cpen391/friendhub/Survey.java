@@ -37,7 +37,7 @@ public class Survey extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+
     private static SurveyHandler sHandler;
     private static int questionTracker[] = {1,1,1,1,1};
     final static int numQuestions = 2;
@@ -45,6 +45,7 @@ public class Survey extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
+    private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private static double userAttributes[];
 
