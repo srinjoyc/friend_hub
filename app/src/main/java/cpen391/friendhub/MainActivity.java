@@ -20,11 +20,21 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Communicator";
     private static final String BASE_SERVER_URL = "https://friend-hub.herokuapp.com";
+    private static final String EXIT_EXTRA = "EXIT";
+    private static final String USER_ATTRIBUTE_KEY = "User Attributes";
     final User client = new User();
+    final int NUM_QUESTIONS = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        if(intent.hasExtra(EXIT_EXTRA)){
+            double tempArray[] = intent.getDoubleArrayExtra(USER_ATTRIBUTE_KEY);
+            for (int i = 0; i < NUM_QUESTIONS; i++) {
+                client.updateAttributes(i, tempArray[i]);
+            }
+        }
         setContentView(R.layout.activity_main);
 
         Button getUserButton = (Button) findViewById(R.id.getUser);

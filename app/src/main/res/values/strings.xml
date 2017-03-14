@@ -3,4 +3,8 @@
     <string name="title_activity_survey">Survey</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="RadioButton1Text">Highly Agree</string>
+    <string name="RadioButton2Text">Mildly Agree</string>
+    <string name="RadioButton3Text">Mildly Disagree</string>
+    <string name="RadioButton4Text">Strongly Disagree</string>
 </resources>

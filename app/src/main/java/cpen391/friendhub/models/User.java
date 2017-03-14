@@ -16,7 +16,12 @@ public class User {
     private String createdAt;
     private String updatedAt;
     private int numAttributes = 5;
-    private double attributes[]= {0,0,0,0,0};
+    // an array storing the 5 points we based our attributes on
+    private double attributes[]= {  0.0,    //Extraversion
+                                    0.0,    //Openness
+                                    0.0,    //Agreeableness
+                                    0.0,    //Conscientiousness
+                                    0.0};   //Neuroticism
 
 
     public int getId() {
@@ -81,7 +86,7 @@ public class User {
         return returnArray;
     }
 
-    public boolean updateAttributes(int attributeNum, int score){
+    public boolean updateAttributes(int attributeNum, double score){
         if (score <= 10 && score > 0) attributes[attributeNum] = score; return attributesInvariant();}
 
     private boolean attributesInvariant() {
@@ -108,7 +113,7 @@ public class User {
         if(!attributesInvariant()){
             Log.e("Attributes", "Attribute Problem:"+ returnString);
         }
-        return returnString.substring(0,returnString.length()-2)+")";
+        return returnString.substring(0,returnString.length()-1)+")";
     }
 
     public String toString() {
