@@ -1,6 +1,7 @@
 package cpen391.friendhub;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,11 +20,15 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Communicator";
     private static final String BASE_SERVER_URL = "https://friend-hub.herokuapp.com";
+    private static final String EXIT_EXTRA = "EXIT";
+    private static final String USER_ATTRIBUTE_KEY = "User Attributes";
     final User client = new User();
+    final int NUM_QUESTIONS = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         Button getUserButton = (Button) findViewById(R.id.getUser);
@@ -36,6 +41,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    public void onResume(Bundle savedInstanceState){
+        super.onResume();
+        Intent intent = getIntent();
+        if(intent.hasExtra(EXIT_EXTRA)){
+            double tempArray[] = intent.getDoubleArrayExtra(USER_ATTRIBUTE_KEY);
+            for (int i = 0; i < NUM_QUESTIONS; i++) {
+                client.updateAttributes(i, tempArray[i]);
+                Log.e("RyanOut",client.attributesToString());
+            }
+        }
+    }
+
+    public void switchToSurvey(View view){
+        Intent intent = new Intent(this,Survey.class);
+        startActivity(intent);
+    }
+
     public void renderResponse(User client){
         TextView name = (TextView) findViewById(R.id.name);
         TextView email = (TextView) findViewById(R.id.email);
@@ -75,5 +98,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
 }
